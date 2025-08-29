@@ -79,10 +79,32 @@ def room():
 
     # Para que no puedas ir a '/room' sin tocar el boton de join/create
     room = session.get("room")
-    if room is None or session.get("name") is None or if room not in rooms:
+    if room is None or session.get("name") is None or room not in rooms:
         return redirect(url_for("home"))
 
     return render_template("room.html")
+
+
+# Sockets section: We connect to our socket server associated with our flask website posted on localhost
+# As soon as we connect we have to "listen" to that connection event
+# Assign room accordingly
+
+@socketio.on("connect")
+def connect(auth):
+    room = session.get("room")
+    name = session.get("name")
+    if not room or not name:
+        return
+    if room not in rooms:
+        leave_room(room)
+        return
+    
+    join_room(room)
+    send({"name": name, "message": "has entered the room"}, to=room)
+    rooms[room]["members"] += 1
+    print(f"{name} joined room {room}")
+
+
 
 if __name__ == "__main__":
     socketio.run(app, debug=app.config["DEBUG"])
