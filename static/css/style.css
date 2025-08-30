@@ -1,0 +1,96 @@
+:root {
+    --window-color: #739099;
+    --bg-color: #224870;
+    --border-color: gray;
+}
+
+* {
+    font-family: "Roboto", sans-serif;
+}
+
+body {
+    background: var(--bg-color);
+    width: 100%;
+    height: 80vh;
+    margin:0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    font-size: 2.5rem;
+}
+
+.join-create {
+    background-color: var(--window-color);
+    padding: 20px;
+    border-radius: 25px;
+    border: 0.5px solid var(--border-color);
+    width: 40rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    padding-top: 6rem;
+}
+
+.join-create button {
+    height: 1.7rem;
+}
+
+.join-create input {
+    height: 2rem;
+}
+
+.message-box {
+    background-color: var(--window-color);
+    padding: 10px;
+    border-radius: 25px;
+    border: 1.5px solid var(--border-color);
+    width: 40rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: small;
+}
+
+.message-box .inputs {
+    display: flex;       /* poner input y botón en fila */
+    gap: 5px;            /* separación opcional entre input y botón */
+    width: 100%;
+    height: 1.8rem;
+}
+
+.message-box .inputs input {
+    flex: 1;             /* ocupa todo el espacio disponible */
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.message-box .inputs button {
+    max-width: 5rem;     /* ancho fijo del botón */
+}
+
+.messages {
+    flex: 1;        /* ocupa todo el espacio disponible */
+    overflow-y: auto; /* scroll si hay muchos mensajes */
+    margin-bottom: 8px;
+}
+
+.text {
+    display: flex;
+    justify-content: space-between; /* texto a la izquierda, fecha a la derecha */
+    margin-bottom: 8px;             /* separa los mensajes */
+    word-wrap: break-word;           /* evita que el texto se salga */
+}
+
+.text span.muted {
+    font-size: 0.7em;
+    color: darkslategray;
+    opacity: 0.5;
+    margin-left: 10px;               /* opcional, un pequeño espacio */
+}
