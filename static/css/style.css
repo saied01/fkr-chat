@@ -90,7 +90,7 @@ body {
 
 .text span.muted {
     font-size: 0.7em;
-    color: darkslategray;
+    color: black;
     opacity: 0.5;
     margin-left: 10px;               /* opcional, un pequeño espacio */
 }
