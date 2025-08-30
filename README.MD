@@ -33,9 +33,11 @@ This project demonstrates how to create a web-based chat room where users can jo
 
     Create and activate a virtual environment:
 
-python -m venv venv
-source venv/bin/activate   # On Linux / Mac
-venv\Scripts\activate      # On Windows
+ 2.
+   ```bash
+   python -m venv venv
+   source venv/bin/activate   # On Linux / Mac
+   venv\Scripts\activate      # On Windows
 
 Install dependencies:
 
