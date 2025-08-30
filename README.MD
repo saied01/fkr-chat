@@ -31,22 +31,21 @@ This project demonstrates how to create a web-based chat room where users can jo
    git clone https://github.com/your-username/fkr-chat.git
    cd fkr-chat
 
-    Create and activate a virtual environment:
 
- 2.
+ 2. Create and activate a virtual environment:
    ```bash
    python -m venv venv
    source venv/bin/activate   # On Linux / Mac
    venv\Scripts\activate      # On Windows
 
-Install dependencies:
+ 3.Install dependencies:
+   ```bash
+   pip install -r requirements.txt
 
-pip install -r requirements.txt
+ 4. Run the Flask server:
+   ```bash
+   python main.py
 
-Run the Flask server:
-
-python main.py
-
-Open your browser at:
-
-http://localhost:5000
+ 5. Open your browser at:
+   ```bash
+   http://localhost:5000
