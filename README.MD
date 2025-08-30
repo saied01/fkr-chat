@@ -46,7 +46,8 @@ This project demonstrates how to create a web-based chat room where users can jo
    ```bash
    python main.py
    ```
- 5. Open your browser at:
+ 5. Server tells you where to open local server:
    ```bash
-   http://localhost:5000
+   ...
+   * Running on http://xxx.x.x.x:5000
    ```
