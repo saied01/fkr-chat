@@ -37,15 +37,16 @@ This project demonstrates how to create a web-based chat room where users can jo
    python -m venv venv
    source venv/bin/activate   # On Linux / Mac
    venv\Scripts\activate      # On Windows
-
+   ```
  3.Install dependencies:
    ```bash
    pip install -r requirements.txt
-
+   ```
  4. Run the Flask server:
    ```bash
    python main.py
-
+   ```
  5. Open your browser at:
    ```bash
    http://localhost:5000
+   ```
