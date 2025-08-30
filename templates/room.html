@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="message-box">
-    <h2>Chat Room: {{room}}</h2>
+    <h2>Chat Room: {{code}}</h2>
     <div class="messages" id="messages"></div>
     <div class="inputs">
         <input type="text" rows="3" name="message" id="message" />
@@ -13,8 +13,52 @@
 <script type="text/javascript">
     var socketio = io();
 
+    const messages = document.getElementById("messages")
+
+    const createMessage = (name, msg) => {
+        const content = `
+        <div class="text">
+            <span>
+                <strong>${name}</strong>: ${msg}
+            </span>
+            <span class="muted">
+                ${new Date().toLocaleString()}
+            </span>
+        </div>
+        `;
+        // el new Date solo toma el date de cuando se recibio el mensaje,
+        // no de cuando se mando, arreglar
+
+        messages.innerHTML += content;
+    };
+
+    // escuchamos el evento de mensaje
+
+    socketio.on("message", (data) => {
+        createMessage(data.name, data.message)
+    });
+
     const sendMessage = () => {
+        const message = document.getElementById("message")
+
+        if (message.value == "") return;
+        socketio.emit("message", {data: message.value});
+        message.value = "";
+
         console.log('send');
     };
+
+    document.getElementById("message").addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            sendMessage();
+        };
+    });
 </script>
+<!-- for loop para mostrar historial de mensajes si refresheas -->
+{% for msg in messages %}
+    <script type="text/javascript">
+        createMessage("{{msg.name}}", "{{msg.message}}")
+    </script>
+{% endfor %}
 {% endblock %}

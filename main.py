@@ -42,7 +42,7 @@ def generate_unique_code(length):
 
 # Home root
 @app.route("/", methods=["POST", "GET"])
-def index():
+def home():
     session.clear()
 
     if request.method == "POST":
@@ -82,12 +82,27 @@ def room():
     if room is None or session.get("name") is None or room not in rooms:
         return redirect(url_for("home"))
 
-    return render_template("room.html")
+    return render_template("room.html", code=room, messages=rooms[room]["messages"])
 
 
 # Sockets section: We connect to our socket server associated with our flask website posted on localhost
 # As soon as we connect we have to "listen" to that connection event
 # Assign room accordingly
+
+
+@socketio.on("message")
+def message(data):
+    room = session.get("room")
+    if room not in rooms:
+        return
+    
+    content = {
+        "name": session.get("name"),
+        "message": data["data"]
+    }
+    send(content, to=room)
+    rooms[room]["messages"].append(content)
+    print(f"{session.get('name')}: {data['data']}")
 
 @socketio.on("connect")
 def connect(auth):
@@ -104,6 +119,21 @@ def connect(auth):
     rooms[room]["members"] += 1
     print(f"{name} joined room {room}")
 
+@socketio.on("disconnect")
+def disconnect(auth):
+    room = session.get("room")
+    name = session.get("name")
+    
+    leave_room(room)
+
+    if room in rooms:
+        rooms[room]["members"] -= 1
+        # Refresh cuando sos el unico miembro, cierra el room
+        if rooms[room]["members"] == 0:
+            del rooms[room]
+
+    send({"name": name, "message": "has left the room"}, to=room)
+    print(f"{name} left room {room}")
 
 
 if __name__ == "__main__":
